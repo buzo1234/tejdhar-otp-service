@@ -22,10 +22,11 @@ module.exports.sendMail = async (params) => {
       .then((response) => response.json())
 
       // Showing response
-      .then((json) => console.log(json))
+      .then((json) => {
+        console.log(json);
+        return json;
+      })
       .catch((err) => console.log(err));
-
-    return json;
   } catch (error) {
     console.log(error);
     return { err: error };
