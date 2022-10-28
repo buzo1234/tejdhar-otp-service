@@ -9,7 +9,7 @@
   "routes": [
     {
       "src": "/auth/",
-      "dest": "auth.controller.js"
+      "dest": "auth.route.js"
     }
   ]
 }

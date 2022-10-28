@@ -20,6 +20,17 @@ module.exports.signUpUser = async (req, res) => {
   res.send(newUser);
 };
 
+/* module.exports.logoutUser = async (req, res) => {
+  const {email} = req.body;
+  const user = await logout(email);
+}
+
+const logout = async (email) => {
+  const user = await User.findOne({
+    email,
+  })
+} */
+
 module.exports.verifyEmail = async (req, res) => {
   const { email, otp } = req.body;
   const user = await validateUserSignUp(email, otp);
