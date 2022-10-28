@@ -1,3 +1,4 @@
+const { json } = require('express');
 const fetch = require('node-fetch');
 
 module.exports.sendMail = async (params) => {
@@ -23,8 +24,10 @@ module.exports.sendMail = async (params) => {
       // Showing response
       .then((json) => console.log(json))
       .catch((err) => console.log(err));
+
+    return json;
   } catch (error) {
     console.log(error);
-    return false;
+    return error;
   }
 };
