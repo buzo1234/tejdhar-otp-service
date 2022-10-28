@@ -1,4 +1,3 @@
-const { encrypt, compare } = require('../services/crypto');
 const { generateOTP } = require('../services/OTP');
 const { sendMail } = require('../services/MAIL');
 const User = require('../models/User');
