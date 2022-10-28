@@ -26,7 +26,10 @@ module.exports.sendMail = async (params) => {
         console.log(json);
         return json;
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        return { error: err };
+      });
   } catch (error) {
     console.log(error);
     return { err: error };
