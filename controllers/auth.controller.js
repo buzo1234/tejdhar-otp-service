@@ -4,13 +4,14 @@ const { sendMail } = require('../services/MAIL');
 const User = require('../models/User');
 
 module.exports.signUpUser = async (req, res) => {
-  const { email, password } = req.body;
+  const { name, email } = req.body;
+  console.log(`Name: ${name} and Phone: ${email}`);
   const isExisting = await findUserByEmail(email);
   if (isExisting) {
     return res.send('Already existing');
   }
   // create new user
-  const newUser = await createUser(email, password);
+  const newUser = await createUser(name, email);
   if (!newUser[0]) {
     return res.status(400).send({
       message: 'Unable to create new user',
@@ -35,12 +36,11 @@ const findUserByEmail = async (email) => {
   return user;
 };
 
-const createUser = async (email, password) => {
-  const hashedPassword = await encrypt(password);
+const createUser = async (name, email) => {
   const otpGenerated = generateOTP();
   const newUser = await User.create({
+    name,
     email,
-    password: hashedPassword,
     otp: otpGenerated,
   });
   if (!newUser) {

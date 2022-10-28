@@ -6,16 +6,12 @@ const userSchema = new mongoose.Schema({
     required: false,
   },
   email: {
-    type: String,
+    type: Number,
     required: true,
   },
   created: {
     type: String,
     default: new Date().toISOString(),
-  },
-  password: {
-    type: String,
-    required: true,
   },
   lastActive: {
     type: String,
