@@ -3,7 +3,7 @@ const fetch = require('node-fetch');
 
 module.exports.sendMail = async (params) => {
   try {
-    fetch('https://49.50.67.32/smsapi/jsonapi.jsp', {
+    await fetch('https://49.50.67.32/smsapi/jsonapi.jsp', {
       method: 'POST',
       body: JSON.stringify({
         username: 'tejdhar',
