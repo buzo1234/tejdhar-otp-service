@@ -1,6 +1,6 @@
 require('dotenv').config();
 module.exports = {
-  allowedOrigins: ['http://localhost:5000/'],
+  allowedOrigins: ['http://0.0.0.0:5000/'],
   SERVER_PORT: process.env.PORT || 5000,
   SERVER_DB_URI:
     'mongodb+srv://abhigyan:abhigyan@cluster0.ozytl.mongodb.net/?retryWrites=true&w=majority',
