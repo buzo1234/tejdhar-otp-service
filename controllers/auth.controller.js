@@ -75,31 +75,30 @@ const validateUserSignUp = async (email, otp) => {
 
 //LOGOUT
 module.exports.logoutUser = async (req, res) => {
-  const { email2 } = req.body;
-
-  const user2 = await validateLogout(email2);
+  const { email } = req.body;
+  console.log(`email 2 is ${email}`);
+  const user2 = await validateLogout(email);
   res.send(user2);
 };
 
 const validateLogout = async (email2) => {
-  const user_logout = await User.findOne({
-    email2,
-  });
+  const user_logout = await findUserByEmail(email2);
+  console.log(`in func ${user_logout}`);
 
   const updateUser = await User.findByIdAndUpdate(user_logout._id, {
     $set: { active: false },
   });
+
+  console.log(updateUser);
 
   return [true, updateUser];
 };
 
 //SIGNIN
 module.exports.signInUser = async (req, res) => {
-  const { email3 } = req.body;
+  const { email } = req.body;
 
-  const isExisting2 = await User.findOne({
-    email3,
-  });
+  const isExisting2 = await findUserByEmail(email);
 
   if (!isExisting2) {
     return res.send([false, 'User Does not Exist']);
@@ -111,5 +110,14 @@ module.exports.signInUser = async (req, res) => {
     $set: { otp: otpGenerated2, active: false },
   });
 
-  res.send([true, updateUser2]);
+  try {
+    let msg = await sendMail({
+      to: email,
+      OTP: otpGenerated2,
+    });
+    console.log('Message is ', msg);
+    res.send([true, updateUser2]);
+  } catch (error) {
+    res.send([false, 'Unable to sign up, Please try again later', error]);
+  }
 };
