@@ -75,9 +75,9 @@ const validateUserSignUp = async (email, otp) => {
 
 //LOGOUT
 module.exports.logoutUser = async (req, res) => {
-  const { email } = req.body;
+  const { email2 } = req.body;
 
-  const user = await validateLogout(email);
+  const user = await validateLogout(email2);
   res.send(user);
 };
 
@@ -94,11 +94,11 @@ const validateLogout = async (email) => {
 };
 
 //SIGNIN
-module.exports.signInUser = async (email) => {
-  const { email } = req.body;
+module.exports.signInUser = async (req, res) => {
+  const { email3 } = req.body;
 
   const isExisting = await User.findOne({
-    email,
+    email3,
   });
 
   if (!isExisting) {
