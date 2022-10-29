@@ -77,13 +77,13 @@ const validateUserSignUp = async (email, otp) => {
 module.exports.logoutUser = async (req, res) => {
   const { email2 } = req.body;
 
-  const user = await validateLogout(email2);
-  res.send(user);
+  const user2 = await validateLogout(email2);
+  res.send(user2);
 };
 
-const validateLogout = async (email) => {
+const validateLogout = async (email2) => {
   const user = await User.findOne({
-    email,
+    email2,
   });
 
   const updateUser = await User.findByIdAndUpdate(user._id, {
@@ -97,19 +97,19 @@ const validateLogout = async (email) => {
 module.exports.signInUser = async (req, res) => {
   const { email3 } = req.body;
 
-  const isExisting = await User.findOne({
+  const isExisting2 = await User.findOne({
     email3,
   });
 
-  if (!isExisting) {
+  if (!isExisting2) {
     return res.send([false, 'User Does not Exist']);
   }
 
-  const otpGenerated = generateOTP();
+  const otpGenerated2 = generateOTP();
 
-  const updateUser = await User.findByIdAndUpdate(isExisting._id, {
-    $set: { otp: otpGenerated, active: false },
+  const updateUser2 = await User.findByIdAndUpdate(isExisting2._id, {
+    $set: { otp: otpGenerated2, active: false },
   });
 
-  res.send([true, updateUser]);
+  res.send([true, updateUser2]);
 };
