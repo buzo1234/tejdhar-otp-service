@@ -82,16 +82,20 @@ module.exports.logoutUser = async (req, res) => {
 };
 
 const validateLogout = async (email2) => {
-  const user_logout = await findUserByEmail(email2);
-  console.log(`in func ${user_logout}`);
+  try {
+    const user_logout = await findUserByEmail(email2);
+    console.log(`in func ${user_logout}`);
 
-  const updateUser = await User.findByIdAndUpdate(user_logout._id, {
-    $set: { active: false },
-  });
+    const updateUser = await User.findByIdAndUpdate(user_logout._id, {
+      $set: { active: false },
+    });
 
-  console.log(updateUser);
+    console.log(updateUser);
 
-  return [true, updateUser];
+    return [true, updateUser];
+  } catch (error) {
+    return [false, error];
+  }
 };
 
 //SIGNIN
