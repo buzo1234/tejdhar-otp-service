@@ -19,17 +19,6 @@ module.exports.signUpUser = async (req, res) => {
   res.send(newUser);
 };
 
-/* module.exports.logoutUser = async (req, res) => {
-  const {email} = req.body;
-  const user = await logout(email);
-}
-
-const logout = async (email) => {
-  const user = await User.findOne({
-    email,
-  })
-} */
-
 module.exports.verifyEmail = async (req, res) => {
   const { email, otp } = req.body;
   const user = await validateUserSignUp(email, otp);
@@ -82,4 +71,45 @@ const validateUserSignUp = async (email, otp) => {
     $set: { active: true },
   });
   return [true, updatedUser];
+};
+
+//LOGOUT
+module.exports.logoutUser = async (req, res) => {
+  const { email } = req.body;
+
+  const user = await validateLogout(email);
+  res.send(user);
+};
+
+const validateLogout = async (email) => {
+  const user = await User.findOne({
+    email,
+  });
+
+  const updateUser = await User.findByIdAndUpdate(user._id, {
+    $set: { active: false },
+  });
+
+  return [true, updateUser];
+};
+
+//SIGNIN
+module.exports.signInUser = async (email) => {
+  const { email } = req.body;
+
+  const isExisting = await User.findOne({
+    email,
+  });
+
+  if (!isExisting) {
+    return res.send([false, 'User Does not Exist']);
+  }
+
+  const otpGenerated = generateOTP();
+
+  const updateUser = await User.findByIdAndUpdate(isExisting._id, {
+    $set: { otp: otpGenerated, active: false },
+  });
+
+  res.send([true, updateUser]);
 };
