@@ -82,11 +82,11 @@ module.exports.logoutUser = async (req, res) => {
 };
 
 const validateLogout = async (email2) => {
-  const user = await User.findOne({
+  const user_logout = await User.findOne({
     email2,
   });
 
-  const updateUser = await User.findByIdAndUpdate(user._id, {
+  const updateUser = await User.findByIdAndUpdate(user_logout._id, {
     $set: { active: false },
   });
 
