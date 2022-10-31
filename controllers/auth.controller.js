@@ -4,7 +4,10 @@ const Insta = require('instamojo-nodejs');
 const User = require('../models/User');
 
 module.exports.payInsta = async (req, res) => {
-  Insta.setKeys(process.env.KEY, process.env.AUTH);
+  Insta.setKeys(
+    'test_a4e7c88af7be7caeda3872fccd9',
+    'test_16bd4fb836979bf83814bc01e2f'
+  );
 
   const data = new Insta.PaymentData();
   Insta.isSandboxMode(true);
@@ -24,6 +27,7 @@ module.exports.payInsta = async (req, res) => {
       //error
     } else {
       const responseData = JSON.parse(response);
+      console.log(response);
       const redirectUrl = responseData.payment_request.longurl;
       res.status(200).json(redirectUrl);
     }
