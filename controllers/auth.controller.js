@@ -1,6 +1,33 @@
 const { generateOTP } = require('../services/OTP');
 const { sendMail } = require('../services/MAIL');
+const Insta = require('instamojo-nodejs');
 const User = require('../models/User');
+
+module.exports.payInsta = async (req, res) => {
+  Insta.setKeys(process.env.KEY, process.env.AUTH);
+
+  const data = new Insta.PaymentData();
+  Insta.isSandboxMode(true);
+
+  data.purpose = req.body.purpose;
+  data.amount = req.body.amount;
+  data.buyer_name = req.body.buyer_name;
+  data.redirect_url = req.body.redirect_url;
+  data.phone = req.body.phone;
+  data.send_sms = true;
+  data.allow_repeated_payments = false;
+  data.webhook = 'http://www.example.com/webhook/';
+
+  Insta.createPayment(data, function (error, response) {
+    if (error) {
+      //error
+    } else {
+      const responseData = JSON.parse(response);
+      const redirectUrl = responseData.payment_request.longurl;
+      res.status(200).json(redirectUrl);
+    }
+  });
+};
 
 module.exports.signUpUser = async (req, res) => {
   const { name, email } = req.body;
