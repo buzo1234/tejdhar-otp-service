@@ -2,10 +2,62 @@ const { generateOTP } = require('../services/OTP');
 const { sendMail } = require('../services/MAIL');
 const Insta = require('instamojo-nodejs');
 const User = require('../models/User');
+const url = require('url');
+
+module.exports.allOrders = async (req, res) => {
+  const { email } = req.body;
+  console.log(email);
+  try {
+    const user_all_orders = await findUserByEmail(email);
+    const all_orders = user_all_orders.orders;
+    res.send([true, all_orders]);
+  } catch (error) {
+    res.send([false, error]);
+  }
+};
+
+module.exports.showOrders = async (req, res) => {
+  let url_parts = url.parse(req.url, true),
+    responsedata = url_parts.query;
+
+  if (responsedata.payment_id) {
+    let userId = responsedata.user_id;
+    let user_order = await findUserByEmail(userId);
+
+    await User.findByIdAndUpdate(user_order._id, {
+      $push: {
+        orders: user_order.cart,
+      },
+      $set: {
+        cart: [],
+      },
+    });
+
+    res.redirect('https://tejdharart.com/orders');
+  } else {
+    res.send([false, 'Payment not found']);
+  }
+};
+
+module.exports.addToCart = async (req, res) => {
+  const { userID, cart } = req.body;
+  try {
+    const user_cart = await findUserByEmail(userID);
+    await User.findByIdAndUpdate(user_cart._id, {
+      $set: { cart: cart },
+    });
+    console.log('done');
+    res.send([true, 'Done']);
+  } catch (error) {
+    res.send([false, 'Error Occured']);
+  }
+};
 
 module.exports.payInsta = async (req, res) => {
-  Insta.setKeys(process.env.API, process.env.AUTH);
-
+  Insta.setKeys(
+    process.env.API || 'test_a4e7c88af7be7caeda3872fccd9',
+    process.env.AUTH || 'test_16bd4fb836979bf83814bc01e2f'
+  );
   const data = new Insta.PaymentData();
 
   data.purpose = req.body.purpose;
@@ -69,6 +121,8 @@ const createUser = async (name, email) => {
     name,
     email,
     otp: otpGenerated,
+    orders: [],
+    cart: [],
   });
   if (!newUser) {
     return [false, 'Unable to sign you up'];

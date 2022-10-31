@@ -20,6 +20,7 @@
     "mongoose": "^6.1.2",
     "node-fetch": "^2.6.7",
     "nodemailer": "^6.7.2",
-    "otp-generator": "^4.0.0"
+    "otp-generator": "^4.0.0",
+    "url": "^0.11.0"
   }
 }
