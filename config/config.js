@@ -7,7 +7,16 @@ const { SERVER_PORT } = require('../constants/constants');
 // Application configurations
 const PORT = SERVER_PORT;
 /* app.use(cors()); */
-app.use(cors({ origin: ['http://localhost:3000', 'http://127.0.0.1:3000'] }));
+app.use(
+  cors({
+    origin: [
+      'http://localhost:3000',
+      'http://127.0.0.1:3000',
+      'https://www.tejdharart.com',
+      'https://tejdharart.com',
+    ],
+  })
+);
 app.use(express.json());
 
 // Application Routing
