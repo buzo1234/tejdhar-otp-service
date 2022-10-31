@@ -4,13 +4,9 @@ const Insta = require('instamojo-nodejs');
 const User = require('../models/User');
 
 module.exports.payInsta = async (req, res) => {
-  Insta.setKeys(
-    'test_a4e7c88af7be7caeda3872fccd9',
-    'test_16bd4fb836979bf83814bc01e2f'
-  );
+  Insta.setKeys(process.env.API, process.env.AUTH);
 
   const data = new Insta.PaymentData();
-  Insta.isSandboxMode(true);
 
   data.purpose = req.body.purpose;
   data.amount = req.body.amount;
