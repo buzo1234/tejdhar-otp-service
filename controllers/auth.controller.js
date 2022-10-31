@@ -20,6 +20,7 @@ module.exports.payInsta = async (req, res) => {
 
   Insta.createPayment(data, function (error, response) {
     if (error) {
+      res.send('Error');
       //error
     } else {
       const responseData = JSON.parse(response);
