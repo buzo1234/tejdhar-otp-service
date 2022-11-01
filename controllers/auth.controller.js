@@ -33,9 +33,14 @@ module.exports.showOrders = async (req, res) => {
     let userId = responsedata.user_id;
     let user_order = await findUserByEmail(userId);
 
+    let order_main = {
+      order: user_order.cart,
+      datetime: new Date(),
+    };
+
     await User.findByIdAndUpdate(user_order._id, {
       $push: {
-        orders: user_order.cart,
+        orders: order_main,
       },
       $set: {
         cart: [],
@@ -67,6 +72,7 @@ module.exports.payInsta = async (req, res) => {
     process.env.API || 'test_a4e7c88af7be7caeda3872fccd9',
     process.env.AUTH || 'test_16bd4fb836979bf83814bc01e2f'
   );
+  Insta.isSandboxMode(true);
   const data = new Insta.PaymentData();
 
   data.purpose = req.body.purpose;
