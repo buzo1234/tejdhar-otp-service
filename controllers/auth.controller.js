@@ -73,7 +73,6 @@ module.exports.payInsta = async (req, res) => {
     process.env.AUTH || 'test_16bd4fb836979bf83814bc01e2f'
   );
   const data = new Insta.PaymentData();
-
   data.purpose = req.body.purpose;
   data.amount = req.body.amount;
   data.buyer_name = req.body.buyer_name;
