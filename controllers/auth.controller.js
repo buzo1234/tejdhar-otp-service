@@ -32,9 +32,12 @@ module.exports.showOrders = async (req, res) => {
   if (responsedata.payment_id) {
     let userId = responsedata.user_id;
     let user_order = await findUserByEmail(userId);
-
+    console.log('user', user_order);
     let order_main = {
-      order: user_order.cart,
+      order: user_order.cart[0]?.cart,
+      address: user_order.cart[0]?.address,
+      user_name: user_order.cart[0]?.username,
+      user_phone: user_order.cart[0]?.userphone,
       datetime: new Date(),
     };
 
@@ -54,11 +57,17 @@ module.exports.showOrders = async (req, res) => {
 };
 
 module.exports.addToCart = async (req, res) => {
-  const { userID, cart } = req.body;
+  const { userID, cart, address, userNa } = req.body;
+  let cart_data = {
+    userphone: userID,
+    username: userNa,
+    address: address,
+    cart: cart,
+  };
   try {
     const user_cart = await findUserByEmail(userID);
     await User.findByIdAndUpdate(user_cart._id, {
-      $set: { cart: cart },
+      $set: { cart: cart_data },
     });
     console.log('done');
     res.send([true, 'Done']);
