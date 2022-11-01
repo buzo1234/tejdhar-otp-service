@@ -1,5 +1,5 @@
-const { generateOTP } = require('../services/OTP');
-const { sendMail } = require('../services/MAIL');
+const { generateOTP } = require('../services/OTP.js');
+const { sendMail } = require('../services/MAIL.js');
 const Insta = require('instamojo-nodejs');
 const User = require('../models/User');
 const url = require('url');
