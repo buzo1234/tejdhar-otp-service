@@ -4,6 +4,15 @@ const Insta = require('instamojo-nodejs');
 const User = require('../models/User');
 const url = require('url');
 
+module.exports.adminOrders = async (req, res) => {
+  try {
+    const admin_users = await User.find({});
+    res.send([true, admin_users]);
+  } catch (error) {
+    res.send([false, error]);
+  }
+};
+
 module.exports.allOrders = async (req, res) => {
   const { email } = req.body;
   console.log(email);
