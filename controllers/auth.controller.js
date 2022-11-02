@@ -220,7 +220,7 @@ module.exports.signInUser = async (req, res) => {
     'Access-Control-Allow-Methods',
     'PUT, POST, GET, DELETE, PATCH, OPTIONS'
   );
-  if (req.method === 'options') {
+  if (req.method === 'OPTIONS') {
     var headers = {};
     headers['Access-Control-Allow-Origin'] = '*';
     headers['Access-Control-Allow-Methods'] = 'POST, GET, PUT, DELETE, OPTIONS';
