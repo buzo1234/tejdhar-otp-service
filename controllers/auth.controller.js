@@ -264,10 +264,20 @@ module.exports.showOrders = async (req, res) => {
   if (responsedata.payment_id) {
     let userId = responsedata.user_id;
     let user_order = await findUserByEmail(userId);
-
+    const current = new Date();
+    const date = `${current.getDate()}/${
+      current.getMonth() + 1
+    }/${current.getFullYear()}`;
+    let order_main = {
+      order: user_order.cart[0]?.cart,
+      address: user_order.cart[0]?.address,
+      user_name: user_order.cart[0]?.username,
+      user_phone: user_order.cart[0]?.userphone,
+      datetime: date,
+    };
     await User.findByIdAndUpdate(user_order._id, {
       $push: {
-        orders: user_order.cart,
+        orders: order_main,
       },
       $set: {
         cart: [],
