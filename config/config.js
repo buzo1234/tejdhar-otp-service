@@ -23,7 +23,7 @@ const PORT = SERVER_PORT;
 }; */
 /* app.use(cors()); */
 app.use(express.json());
-app.use(cors());
+//app.use(cors());
 app.use(function (req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');
   res.header(
@@ -32,7 +32,7 @@ app.use(function (req, res, next) {
   );
   next();
 });
-app.options('*', cors());
+//app.options('*', cors());
 // Application Routing
 app.use('/', require('../routes/router'));
 
