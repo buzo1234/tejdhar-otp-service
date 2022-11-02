@@ -10,6 +10,6 @@ router.post('/pay', authController.payInsta);
 router.get('/orders', authController.showOrders);
 router.post('/atc', authController.addToCart);
 router.post('/getorders', authController.allOrders);
-//router.post('/adminorders', authController.adminOrders);
+router.post('/adminorders', authController.adminOrders);
 
 module.exports = router;

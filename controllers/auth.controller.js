@@ -246,6 +246,19 @@ const User = require('../models/User');
 const url = require('url');
 
 module.exports.allOrders = async (req, res) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  const { email } = req.body;
+  console.log(email);
+  try {
+    const user_all_orders = await findUserByEmail(email);
+    const all_orders = user_all_orders.orders;
+    res.send([true, all_orders]);
+  } catch (error) {
+    res.send([false, error]);
+  }
+};
+
+module.exports.allOrders = async (req, res) => {
   const { email } = req.body;
   console.log(email);
   try {
