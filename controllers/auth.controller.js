@@ -221,6 +221,13 @@ module.exports.signInUser = async (req, res) => {
     'PUT, POST, GET, DELETE, PATCH, OPTIONS'
   );
   if (req.method === 'OPTIONS') {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Max-Age', '1800');
+    res.setHeader('Access-Control-Allow-Headers', 'content-type');
+    res.setHeader(
+      'Access-Control-Allow-Methods',
+      'PUT, POST, GET, DELETE, PATCH, OPTIONS'
+    );
     var headers = {};
     headers['Access-Control-Allow-Origin'] = '*';
     headers['Access-Control-Allow-Methods'] = 'POST, GET, PUT, DELETE, OPTIONS';
