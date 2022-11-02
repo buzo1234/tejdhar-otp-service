@@ -212,7 +212,8 @@ const validateLogout = async (email2) => {
 
 //SIGNIN
 module.exports.signInUser = async (req, res) => {
-  res.header('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Content-Type', 'application/json');
   const { email } = req.body;
 
   const isExisting2 = await findUserByEmail(email);
