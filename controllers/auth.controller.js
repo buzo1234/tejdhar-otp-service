@@ -281,11 +281,17 @@ module.exports.showOrders = async (req, res) => {
 };
 
 module.exports.addToCart = async (req, res) => {
-  const { userID, cart } = req.body;
+  const { userID, cart, address, userNa } = req.body;
   try {
     const user_cart = await findUserByEmail(userID);
+    let cart_data = {
+      userphone: userID,
+      username: userNa,
+      address: address,
+      cart: cart,
+    };
     await User.findByIdAndUpdate(user_cart._id, {
-      $set: { cart: cart },
+      $set: { cart: cart_data },
     });
     console.log('done');
     res.send([true, 'Done']);
@@ -299,6 +305,7 @@ module.exports.payInsta = async (req, res) => {
     process.env.API || 'test_a4e7c88af7be7caeda3872fccd9',
     process.env.AUTH || 'test_16bd4fb836979bf83814bc01e2f'
   );
+  Insta.isSandboxMode(true);
   const data = new Insta.PaymentData();
 
   data.purpose = req.body.purpose;
