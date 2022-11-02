@@ -324,10 +324,9 @@ module.exports.addToCart = async (req, res) => {
 
 module.exports.payInsta = async (req, res) => {
   Insta.setKeys(
-    /* process.env.API || */ 'test_a4e7c88af7be7caeda3872fccd9',
-    /*  process.env.AUTH ||  */ 'test_16bd4fb836979bf83814bc01e2f'
+    process.env.API || 'test_a4e7c88af7be7caeda3872fccd9',
+    process.env.AUTH || 'test_16bd4fb836979bf83814bc01e2f'
   );
-  Insta.isSandboxMode(true);
   const data = new Insta.PaymentData();
 
   data.purpose = req.body.purpose;
