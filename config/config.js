@@ -24,6 +24,7 @@ var corsOptions = {
 /* app.use(cors()); */
 app.use(cors(corsOptions));
 app.use(express.json());
+app.options('*', cors(corsOptions));
 // Application Routing
 app.use('/', require('../routes/router'));
 
