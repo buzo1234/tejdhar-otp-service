@@ -1,8 +1,8 @@
-const { generateOTP } = require('../services/OTP.js');
-const { sendMail } = require('../services/MAIL.js');
-const Insta = require('instamojo-nodejs');
-const User = require('../models/User');
 const url = require('url');
+const User = require('../models/User');
+const { sendMail } = require('../services/MAIL.js');
+const { generateOTP } = require('../services/OTP.js');
+const Insta = require('instamojo-nodejs');
 
 module.exports.adminOrders = async (req, res) => {
   res.header('Access-Control-Allow-Origin', '*');
