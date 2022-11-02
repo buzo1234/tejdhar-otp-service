@@ -19,12 +19,11 @@ const { SERVER_PORT } = require('../constants/constants');
 const PORT = SERVER_PORT;
 var corsOptions = {
   origin: '*',
-  credentials: true, // some legacy browsers (IE11, various SmartTVs) choke on 204
+  credentials: false, // some legacy browsers (IE11, various SmartTVs) choke on 204
 };
 /* app.use(cors()); */
 app.use(cors(corsOptions));
 app.use(express.json());
-app.options('*', cors(corsOptions));
 // Application Routing
 app.use('/', require('../routes/router'));
 
