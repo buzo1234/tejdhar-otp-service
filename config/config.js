@@ -17,13 +17,13 @@ const { SERVER_PORT } = require('../constants/constants');
     credentials: true,
   } */
 const PORT = SERVER_PORT;
-var corsOptions = {
+/* var corsOptions = {
   origin: '*',
-  credentials: false, // some legacy browsers (IE11, various SmartTVs) choke on 204
-};
+  credentials: true, // some legacy browsers (IE11, various SmartTVs) choke on 204
+}; */
 /* app.use(cors()); */
-app.use(cors(corsOptions));
 app.use(express.json());
+app.use(cors());
 // Application Routing
 app.use('/', require('../routes/router'));
 
