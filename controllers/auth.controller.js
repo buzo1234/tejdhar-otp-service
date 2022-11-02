@@ -228,7 +228,7 @@ module.exports.signInUser = async (req, res) => {
     headers['Access-Control-Max-Age'] = '86400'; // 24 hours
     headers['Access-Control-Allow-Headers'] =
       'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept';
-    res.sendStatus(200);
+    res.writeHead(200, headers);
   }
   const { email } = req.body;
 
