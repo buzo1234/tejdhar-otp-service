@@ -245,13 +245,11 @@ const Insta = require('instamojo-nodejs');
 const User = require('../models/User');
 const url = require('url');
 
-module.exports.allOrders = async (req, res) => {
-  const { email } = req.body;
-  console.log(email);
+module.exports.adminOrders = async (req, res) => {
+  res.header('Access-Control-Allow-Origin', '*');
   try {
-    const user_all_orders = await findUserByEmail(email);
-    const all_orders = user_all_orders.orders;
-    res.send([true, all_orders]);
+    const admin_users = await User.find({});
+    res.send([true, admin_users]);
   } catch (error) {
     res.send([false, error]);
   }
