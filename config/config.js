@@ -5,11 +5,7 @@ const mongoose = require('mongoose');
 const { SERVER_PORT } = require('../constants/constants');
 
 // Application configurations
-const PORT = SERVER_PORT;
-/* app.use(cors()); */
-app.options('*', cors());
-app.use(
-  cors({
+/* {
     origin: [
       'http://localhost:3000',
       'http://localhost:3001',
@@ -19,8 +15,10 @@ app.use(
       'https://tejdharart.com',
     ],
     credentials: true,
-  })
-);
+  } */
+const PORT = SERVER_PORT;
+/* app.use(cors()); */
+app.use(cors());
 app.use(express.json());
 
 // Application Routing
