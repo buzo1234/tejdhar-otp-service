@@ -29,6 +29,7 @@ module.exports.allOrders = async (req, res) => {
 
 module.exports.showOrders = async (req, res) => {
   res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', ' Content-Type');
   let url_parts = url.parse(req.url, true),
     responsedata = url_parts.query;
 
