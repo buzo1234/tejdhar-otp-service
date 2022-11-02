@@ -1,6 +1,13 @@
 const router = require('express').Router();
 const authController = require('../controllers/auth.controller');
 
+router.all('*', function (req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Content-Type');
+  next();
+});
+
 router.post('/', authController.signUpUser);
 router.post('/verify', authController.verifyEmail);
 router.post('/logout', authController.logoutUser);
