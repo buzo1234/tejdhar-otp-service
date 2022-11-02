@@ -17,6 +17,7 @@ app.use(
       'https://www.tejdharart.com',
       'https://tejdharart.com',
     ],
+    optionsSuccessStatus: 200,
   })
 );
 app.use(express.json());
