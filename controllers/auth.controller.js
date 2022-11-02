@@ -5,6 +5,7 @@ const User = require('../models/User');
 const url = require('url');
 
 module.exports.adminOrders = async (req, res) => {
+  res.header('Access-Control-Allow-Origin', '*');
   try {
     const admin_users = await User.find({});
     res.send([true, admin_users]);
@@ -14,6 +15,7 @@ module.exports.adminOrders = async (req, res) => {
 };
 
 module.exports.allOrders = async (req, res) => {
+  res.header('Access-Control-Allow-Origin', '*');
   const { email } = req.body;
   console.log(email);
   try {
@@ -26,6 +28,7 @@ module.exports.allOrders = async (req, res) => {
 };
 
 module.exports.showOrders = async (req, res) => {
+  res.header('Access-Control-Allow-Origin', '*');
   let url_parts = url.parse(req.url, true),
     responsedata = url_parts.query;
 
@@ -57,6 +60,7 @@ module.exports.showOrders = async (req, res) => {
 };
 
 module.exports.addToCart = async (req, res) => {
+  res.header('Access-Control-Allow-Origin', '*');
   const { userID, cart, address, userNa } = req.body;
   let cart_data = {
     userphone: userID,
@@ -105,6 +109,7 @@ module.exports.payInsta = async (req, res) => {
 };
 
 module.exports.signUpUser = async (req, res) => {
+  res.header('Access-Control-Allow-Origin', '*');
   const { name, email } = req.body;
   console.log(`Name: ${name} and Phone: ${email}`);
   const isExisting = await findUserByEmail(email);
@@ -122,6 +127,7 @@ module.exports.signUpUser = async (req, res) => {
 };
 
 module.exports.verifyEmail = async (req, res) => {
+  res.header('Access-Control-Allow-Origin', '*');
   const { email, otp } = req.body;
   const user = await validateUserSignUp(email, otp);
   res.send(user);
@@ -179,6 +185,7 @@ const validateUserSignUp = async (email, otp) => {
 
 //LOGOUT
 module.exports.logoutUser = async (req, res) => {
+  res.header('Access-Control-Allow-Origin', '*');
   const { email } = req.body;
   console.log(`email 2 is ${email}`);
   const user2 = await validateLogout(email);
@@ -204,6 +211,7 @@ const validateLogout = async (email2) => {
 
 //SIGNIN
 module.exports.signInUser = async (req, res) => {
+  res.header('Access-Control-Allow-Origin', '*');
   const { email } = req.body;
 
   const isExisting2 = await findUserByEmail(email);
