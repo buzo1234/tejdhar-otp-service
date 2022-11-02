@@ -4,7 +4,7 @@ const authController = require('../controllers/auth.controller');
 router.post('/', authController.signUpUser);
 router.post('/verify', authController.verifyEmail);
 router.post('/logout', authController.logoutUser);
-router.get('/signin', authController.signInUser);
+router.post('/signin', authController.signInUser);
 router.post('/pay', authController.payInsta);
 router.get('/orders', authController.showOrders);
 router.post('/atc', authController.addToCart);
