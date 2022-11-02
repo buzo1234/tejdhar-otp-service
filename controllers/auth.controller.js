@@ -268,11 +268,13 @@ module.exports.showOrders = async (req, res) => {
     const date = `${current.getDate()}/${
       current.getMonth() + 1
     }/${current.getFullYear()}`;
+    const cart_order = user_order.cart[0];
+
     let order_main = {
-      order: user_order.cart[0]?.cart,
-      address: user_order.cart[0]?.address,
-      user_name: user_order.cart[0]?.username,
-      user_phone: user_order.cart[0]?.userphone,
+      order: cart_order.cart,
+      address: cart_order.address,
+      user_name: cart_order.username,
+      user_phone: cart_order.userphone,
       datetime: date,
     };
     await User.findByIdAndUpdate(user_order._id, {
