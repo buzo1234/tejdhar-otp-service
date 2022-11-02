@@ -15,7 +15,7 @@ module.exports.adminOrders = async (req, res) => {
 };
 
 module.exports.allOrders = async (req, res) => {
-  
+  res.header('Access-Control-Allow-Origin', '*');
   const { email } = req.body;
   console.log(email);
   try {
@@ -28,6 +28,8 @@ module.exports.allOrders = async (req, res) => {
 };
 
 module.exports.showOrders = async (req, res) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', ' Content-Type');
   let url_parts = url.parse(req.url, true),
     responsedata = url_parts.query;
 
@@ -59,7 +61,7 @@ module.exports.showOrders = async (req, res) => {
 };
 
 module.exports.addToCart = async (req, res) => {
-
+  res.header('Access-Control-Allow-Origin', '*');
   const { userID, cart, address, userNa } = req.body;
   let cart_data = {
     userphone: userID,
@@ -108,7 +110,7 @@ module.exports.payInsta = async (req, res) => {
 };
 
 module.exports.signUpUser = async (req, res) => {
-  
+  res.header('Access-Control-Allow-Origin', '*');
   const { name, email } = req.body;
   console.log(`Name: ${name} and Phone: ${email}`);
   const isExisting = await findUserByEmail(email);
@@ -126,7 +128,7 @@ module.exports.signUpUser = async (req, res) => {
 };
 
 module.exports.verifyEmail = async (req, res) => {
- 
+  res.header('Access-Control-Allow-Origin', '*');
   const { email, otp } = req.body;
   const user = await validateUserSignUp(email, otp);
   res.send(user);
@@ -262,16 +264,10 @@ module.exports.showOrders = async (req, res) => {
   if (responsedata.payment_id) {
     let userId = responsedata.user_id;
     let user_order = await findUserByEmail(userId);
-    let order_main = {
-      order: user_order.cart[0]?.cart,
-      address: user_order.cart[0]?.address,
-      user_name: user_order.cart[0]?.username,
-      user_phone: user_order.cart[0]?.userphone,
-      datetime: new Date(),
-    };
+
     await User.findByIdAndUpdate(user_order._id, {
       $push: {
-        orders: order_main,
+        orders: user_order.cart,
       },
       $set: {
         cart: [],
@@ -285,17 +281,11 @@ module.exports.showOrders = async (req, res) => {
 };
 
 module.exports.addToCart = async (req, res) => {
-  const { userID, cart, address, userNa } = req.body;
-  let cart_data = {
-    userphone: userID,
-    username: userNa,
-    address: address,
-    cart: cart,
-  };
+  const { userID, cart } = req.body;
   try {
     const user_cart = await findUserByEmail(userID);
     await User.findByIdAndUpdate(user_cart._id, {
-      $set: { cart: cart_data },
+      $set: { cart: cart },
     });
     console.log('done');
     res.send([true, 'Done']);
