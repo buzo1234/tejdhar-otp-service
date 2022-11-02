@@ -7,6 +7,7 @@ const { SERVER_PORT } = require('../constants/constants');
 // Application configurations
 const PORT = SERVER_PORT;
 /* app.use(cors()); */
+app.options('*', cors());
 app.use(
   cors({
     origin: [
@@ -17,6 +18,7 @@ app.use(
       'https://www.tejdharart.com',
       'https://tejdharart.com',
     ],
+    credentials: true,
   })
 );
 app.use(express.json());
@@ -26,7 +28,6 @@ app.use('/', require('../routes/router'));
 
 // Database configurations
 const db = mongoose;
-
 module.exports = {
   app,
   db,
