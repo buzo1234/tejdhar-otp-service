@@ -246,7 +246,6 @@ const User = require('../models/User');
 const url = require('url');
 
 module.exports.allOrders = async (req, res) => {
-  res.header('Access-Control-Allow-Origin', '*');
   const { email } = req.body;
   console.log(email);
   try {
