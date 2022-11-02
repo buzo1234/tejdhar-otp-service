@@ -18,14 +18,7 @@ const { SERVER_PORT } = require('../constants/constants');
   } */
 const PORT = SERVER_PORT;
 var corsOptions = {
-  origin: [
-    'http://localhost:3000',
-    'http://localhost:3000/',
-    'http://127.0.0.1:3000/',
-    'http://127.0.0.1:3000/',
-    'https://tejdharart.com/',
-    'https://tejdharart.com',
-  ],
+  origin: '*',
   credentials: true, // some legacy browsers (IE11, various SmartTVs) choke on 204
 };
 /* app.use(cors()); */
