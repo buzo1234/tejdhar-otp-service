@@ -212,31 +212,6 @@ const validateLogout = async (email2) => {
 
 //SIGNIN
 module.exports.signInUser = async (req, res) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Credentials', 'true');
-  res.setHeader('Access-Control-Max-Age', '1800');
-  res.setHeader('Access-Control-Allow-Headers', 'content-type');
-  res.setHeader(
-    'Access-Control-Allow-Methods',
-    'PUT, POST, GET, DELETE, PATCH, OPTIONS'
-  );
-  if (req.method === 'OPTIONS') {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Max-Age', '1800');
-    res.setHeader('Access-Control-Allow-Headers', 'content-type');
-    res.setHeader(
-      'Access-Control-Allow-Methods',
-      'PUT, POST, GET, DELETE, PATCH, OPTIONS'
-    );
-    var headers = {};
-    headers['Access-Control-Allow-Origin'] = '*';
-    headers['Access-Control-Allow-Methods'] = 'POST, GET, PUT, DELETE, OPTIONS';
-    headers['Access-Control-Allow-Credentials'] = false;
-    headers['Access-Control-Max-Age'] = '86400'; // 24 hours
-    headers['Access-Control-Allow-Headers'] =
-      'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept';
-    res.writeHead(200, headers);
-  }
   const { email } = req.body;
 
   const isExisting2 = await findUserByEmail(email);
