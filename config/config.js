@@ -32,6 +32,7 @@ app.use(function (req, res, next) {
   );
   next();
 });
+app.options('*', cors());
 // Application Routing
 app.use('/', require('../routes/router'));
 
