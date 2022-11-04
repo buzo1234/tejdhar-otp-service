@@ -241,6 +241,7 @@ module.exports.signInUser = async (req, res) => {
 
 const { generateOTP } = require('../services/OTP');
 const { sendMail } = require('../services/MAIL');
+const { sendEmail } = require('../services/EMAIL');
 const Insta = require('instamojo-nodejs');
 const User = require('../models/User');
 const url = require('url');
@@ -366,6 +367,8 @@ module.exports.signUpUser = async (req, res) => {
   }
   res.send(newUser);
 };
+
+
 module.exports.verifyEmail = async (req, res) => {
   const { email, otp } = req.body;
   const user = await validateUserSignUp(email, otp);
@@ -380,6 +383,15 @@ const findUserByEmail = async (email) => {
   }
   return user;
 };
+
+module.exports.customOrder = async(req, res) => {
+  const {name, email, description, phone} = req.body;
+  try {
+    await sendEmail({to: email, desc: description, name: name, phone:phone})
+  } catch (error) {
+    res.send([false, error]);
+  }
+}
 const createUser = async (name, email) => {
   const otpGenerated = generateOTP();
   const newUser = await User.create({

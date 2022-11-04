@@ -11,4 +11,11 @@ module.exports = {
     upperCaseAlphabets: false,
     specialChars: false,
   },
+  MAIL_SETTINGS: {
+    service: 'gmail',
+    auth: {
+      user: process.env.MAIL_EMAIL || 'karanbuzo@gmail.com',
+      pass: process.env.MAIL_PASSWORD || 'czzyyednjgcroykk',
+    },
+  },
 };
