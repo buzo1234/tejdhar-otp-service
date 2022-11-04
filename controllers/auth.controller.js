@@ -282,7 +282,7 @@ module.exports.showOrders = async (req, res) => {
     const cart_order = user_order.cart[0];
 
     let order_main = {
-      _id: mongoose.Types.ObjectId(),
+      
       order: cart_order.cart,
       address: cart_order.address,
       user_name: cart_order.username,
