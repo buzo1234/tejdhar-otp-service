@@ -282,6 +282,7 @@ module.exports.showOrders = async (req, res) => {
     const cart_order = user_order.cart[0];
 
     let order_main = {
+      _id: mongoose.Types.ObjectId(),
       order: cart_order.cart,
       address: cart_order.address,
       user_name: cart_order.username,
@@ -342,6 +343,8 @@ module.exports.payInsta = async (req, res) => {
     process.env.API || 'test_a4e7c88af7be7caeda3872fccd9',
     process.env.AUTH || 'test_16bd4fb836979bf83814bc01e2f'
   );
+
+  Insta.isSandboxMode(true);
   const data = new Insta.PaymentData();
 
   data.purpose = req.body.purpose;
