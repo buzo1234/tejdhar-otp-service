@@ -287,6 +287,7 @@ module.exports.showOrders = async (req, res) => {
       user_name: cart_order.username,
       user_phone: cart_order.userphone,
       datetime: date,
+      status: 'Order Placed'
     };
     await User.findByIdAndUpdate(user_order._id, {
       $push: {
