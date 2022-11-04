@@ -388,6 +388,7 @@ module.exports.customOrder = async(req, res) => {
   const {name, email, description, phone} = req.body;
   try {
     await sendEmail({to: email, desc: description, name: name, phone:phone})
+    res.send([true, 'Mail sent']);
   } catch (error) {
     res.send([false, error]);
   }
