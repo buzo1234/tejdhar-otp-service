@@ -311,7 +311,7 @@ module.exports.changeStatus = async (req, res) => {
   try {
     const user_status = await findUserByEmail(phone);
 
-    await User.updateOne(
+    await User.update(
       { email: phone, 'orders._id': id },
       {
         $set: { 'orders.$.status': status },
