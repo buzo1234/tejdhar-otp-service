@@ -287,7 +287,7 @@ module.exports.showOrders = async (req, res) => {
       user_name: cart_order.username,
       user_phone: cart_order.userphone,
       datetime: date,
-      status: 'Order Placed'
+      status: 'Order Placed',
     };
     await User.findByIdAndUpdate(user_order._id, {
       $push: {
@@ -301,6 +301,19 @@ module.exports.showOrders = async (req, res) => {
     res.redirect('https://tejdharart.com/orders');
   } else {
     res.send([false, 'Payment not found']);
+  }
+};
+
+module.exports.changeStatus = async (req, res) => {
+  const { status, phone } = req.body;
+  try {
+    const user_status = await findUserByEmail(phone);
+    await User.findByIdAndUpdate(user_status._id, {
+      $set: { status: status },
+    });
+    res.send([true, 'done']);
+  } catch (error) {
+    res.send([false, error]);
   }
 };
 
@@ -369,7 +382,6 @@ module.exports.signUpUser = async (req, res) => {
   res.send(newUser);
 };
 
-
 module.exports.verifyEmail = async (req, res) => {
   const { email, otp } = req.body;
   const user = await validateUserSignUp(email, otp);
@@ -385,15 +397,15 @@ const findUserByEmail = async (email) => {
   return user;
 };
 
-module.exports.customOrder = async(req, res) => {
-  const {name, email, description, phone} = req.body;
+module.exports.customOrder = async (req, res) => {
+  const { name, email, description, phone } = req.body;
   try {
-    await sendEmail({to: email, desc: description, name: name, phone:phone})
+    await sendEmail({ to: email, desc: description, name: name, phone: phone });
     res.send([true, 'Mail sent']);
   } catch (error) {
     res.send([false, error]);
   }
-}
+};
 const createUser = async (name, email) => {
   const otpGenerated = generateOTP();
   const newUser = await User.create({
