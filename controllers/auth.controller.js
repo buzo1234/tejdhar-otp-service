@@ -245,6 +245,7 @@ const { sendEmail } = require('../services/EMAIL');
 const Insta = require('instamojo-nodejs');
 const User = require('../models/User');
 const url = require('url');
+var mongoose = require('mongoose');
 
 module.exports.adminOrders = async (req, res) => {
   res.header('Access-Control-Allow-Origin', '*');
@@ -282,7 +283,7 @@ module.exports.showOrders = async (req, res) => {
     const cart_order = user_order.cart[0];
 
     let order_main = {
-      /* _id: mongoose.Types.ObjectId(), */
+      _id: mongoose.Types.ObjectId(),
       order: cart_order.cart,
       address: cart_order.address,
       user_name: cart_order.username,
