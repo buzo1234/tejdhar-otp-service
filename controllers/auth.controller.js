@@ -316,7 +316,9 @@ module.exports.changeStatus = async (req, res) => {
       {
         $set: { 'orders.$.status': status },
       }
-    );
+    )
+      .then((res) => console.log(res))
+      .catch((err) => res.send([false, err]));
     res.send([true, 'done']);
   } catch (error) {
     res.send([false, error]);
