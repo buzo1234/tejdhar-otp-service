@@ -289,7 +289,7 @@ module.exports.showOrders = async (req, res) => {
       user_name: cart_order.username,
       user_phone: cart_order.userphone,
       datetime: date,
-      status: 'Order Placed',
+      status: 'Received',
     };
     await User.findByIdAndUpdate(user_order._id, {
       $push: {
@@ -307,12 +307,16 @@ module.exports.showOrders = async (req, res) => {
 };
 
 module.exports.changeStatus = async (req, res) => {
-  const { status, phone } = req.body;
+  const { status, phone, id } = req.body;
   try {
     const user_status = await findUserByEmail(phone);
-    await User.findByIdAndUpdate(user_status._id, {
-      $set: { status: status },
-    });
+
+    await User.updateOne(
+      { email: phone, 'orders._id': id },
+      {
+        $set: { 'orders.$.status': status },
+      }
+    );
     res.send([true, 'done']);
   } catch (error) {
     res.send([false, error]);
