@@ -13,11 +13,13 @@ module.exports.sendEmail = async (params) => {
         class="container"
         style="max-width: 90%; margin: auto; padding-top: 20px"
       >
-        <h2>Welcome to the club.</h2>
-        <h4>You are officially In ✔</h4>
-        <p style="margin-bottom: 30px;">Pleas enter the sign up OTP to get started</p>
-        <h1 style="font-size: 40px; letter-spacing: 2px; text-align:center;">${params.desc}, ${params.name}, ${params.phone}</h1>
-        <p style="margin-top:50px;">If you do not request for verification please do not respond to the mail. You can in turn un subscribe to the mailing list and we will never bother you again.</p>
+        <h2>New Custom Order Details</h2>
+        <p style="margin-bottom: 10px;">Name:</p>
+        <div style="margin-bottom: 30px;">${params.name}</div>
+        <p style="margin-bottom: 10px;">Phone Number:</p>
+        <div style="margin-bottom: 30px;">${params.phone}</div>
+        <p style="margin-bottom: 10px;">Description:</p>
+        <div style="margin-bottom: 30px;">${params.desc}</div>
       </div>
     `,
     });
