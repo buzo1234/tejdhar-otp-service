@@ -309,7 +309,7 @@ module.exports.showOrders = async (req, res) => {
 module.exports.changeStatus = async (req, res) => {
   const { status, phone, id } = req.body;
   await User.findOne(
-    { orders: { $elemMatch: { _id: id } } },
+    { orders: { $elemMatch: { 'orders._id': id } } },
     function (err, user) {
       if (err) {
         res.send([false, err]);
