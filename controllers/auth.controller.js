@@ -308,19 +308,20 @@ module.exports.showOrders = async (req, res) => {
 
 module.exports.changeStatus = async (req, res) => {
   const { status, phone, id } = req.body;
-  let iid = mongoose.Types.ObjectId(id);
-  let flag = false;
-  let uu = await User.find({ orders: { $elemMatch: { _id: iid } } }).then(
-    function (err, data) {
-      flag = true;
-      console.log(err)
-    }
-  );
-  console.log('user', JSON.stringify(uu));
-  if (flag) {
-    res.send([true, JSON.stringify(uu)]);
-  } else {
-    res.send([false, 'Error occured']);
+  try {
+    const user_status = await findUserByEmail(phone);
+
+    let ddata = await User.find(
+      { email: phone, 'orders._id': id },
+      {
+        $set: { 'orders.$.status': status },
+      }
+    )
+      .then((response) =>  res.send([true, ddata]))
+      .catch((error) => res.send([false, error]));
+   
+  } catch (error) {
+    res.send([false, error]);
   }
 };
 
