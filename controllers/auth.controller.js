@@ -313,6 +313,7 @@ module.exports.changeStatus = async (req, res) => {
   let uu = await User.find({ orders: { $elemMatch: { _id: iid } } }).then(
     function (err, data) {
       flag = true;
+      console.log(err)
     }
   );
   console.log('user', JSON.stringify(uu));
