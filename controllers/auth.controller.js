@@ -308,20 +308,16 @@ module.exports.showOrders = async (req, res) => {
 
 module.exports.changeStatus = async (req, res) => {
   const { status, phone, id } = req.body;
-  await User.find(
-    { orders: { $elemMatch: { '_id': id } } },
-    function (err, user) {
-      if (err) {
-        res.send([false, err]);
-      }
-
-      if (user) {
-        res.send([true, user]);
-      } else {
-        res.send([false, 'Error']);
-      }
+  await User.find({ orders: { $elemMatch: { _id: id } } }).then(function (
+    err,
+    data
+  ) {
+    if (!err) {
+      res.send([true, data]);
+    } else {
+      res.send([false, err]);
     }
-  );
+  });
 };
 
 module.exports.addToCart = async (req, res) => {
