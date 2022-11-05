@@ -315,6 +315,7 @@ module.exports.changeStatus = async (req, res) => {
     if (!err) {
       res.send([true, data]);
     } else {
+      console.log(err);
       res.send([false, err]);
     }
   });
