@@ -312,12 +312,7 @@ module.exports.changeStatus = async (req, res) => {
     err,
     data
   ) {
-    if (!err) {
-      res.send([true, data]);
-    } else {
-      console.log(err);
-      res.send([false, err]);
-    }
+    res.send([true, data]);
   });
 };
 
