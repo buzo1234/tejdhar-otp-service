@@ -305,22 +305,25 @@ module.exports.showOrders = async (req, res) => {
     res.send([false, 'Payment not found']);
   }
 };
-/* 
+
 module.exports.changeStatus = async (req, res) => {
   const { status, phone, id } = req.body;
-  try {
-    const user_status = await findUserByEmail(phone);
-    res.send([true, user_status])
-    let ddata = await User.findByIdAndUpdate(user_status._id, {
-      $set: { 'orders.$[].status': status },
-    })
-      .then((response) => res.send([true, ddata]))
-      .catch((error) => res.send([false, error])); 
-  } catch (error) {
-    res.send([false, error]);
-  }
+  await User.findOne(
+    { 'orders._id': { $elemMatch: { email: phone } } },
+    function (err, user) {
+      if (err) {
+        res.send([false, err]);
+      }
+
+      if (user) {
+        res.send([true, user]);
+      } else {
+        res.send([false, 'Error']);
+      }
+    }
+  );
 };
- */
+
 module.exports.addToCart = async (req, res) => {
   const { userID, cart, address, userNa } = req.body;
   try {
