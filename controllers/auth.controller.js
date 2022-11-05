@@ -308,12 +308,20 @@ module.exports.showOrders = async (req, res) => {
 
 module.exports.changeStatus = async (req, res) => {
   const { status, phone, id } = req.body;
-  await User.find({ orders: { $elemMatch: { _id: id } } }).then(function (
+  let flag = false;
+  let uu = await User.find({ orders: { $elemMatch: { _id: id } } }).then(function (
     err,
     data
   ) {
-    res.send([true, data]);
+    flag = true;
   });
+
+  if(flag){
+    res.send([true, uu])
+  }
+  else{
+    res.send([false, 'Error occured'])
+  }
 };
 
 module.exports.addToCart = async (req, res) => {
