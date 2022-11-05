@@ -311,15 +311,11 @@ module.exports.changeStatus = async (req, res) => {
   try {
     const user_status = await findUserByEmail(phone);
 
-    let ddata = await User.findOneAndUpdate(
-      { email: phone, 'orders._id': id },
-      {
-        $set: { 'orders.$.status': status },
-      }
-    )
-      .then((response) =>  res.send([true, ddata]))
-      .catch((err) => res.send([false, err]));
-   
+    let ddata = await User.findByIdAndUpdate(user_status._id, {
+      $set: { 'orders.$[].status': status },
+    })
+      .then((response) => res.send([true, ddata]))
+      .catch((error) => res.send([false, error]));
   } catch (error) {
     res.send([false, error]);
   }
