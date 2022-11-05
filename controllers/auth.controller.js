@@ -308,20 +308,25 @@ module.exports.showOrders = async (req, res) => {
 
 module.exports.changeStatus = async (req, res) => {
   const { status, phone, id } = req.body;
-  try {
-    const user_status = await findUserByEmail(phone);
 
-    let ddata = await User.findOneAndUpdate(
+  try {
+    await User.updateOne({'orders._id': mongoose.Types.ObjectId(id)}, {$set : {'orders.$.status' : status}}).then((response) => res.send([true, response])).catch((err) => res.send([false, err]))
+  } catch (error) {
+    res.send([false, error])
+  }
+
+/*   try {
+    await User.findOneAndUpdate(
       { email: phone, 'orders._id': mongoose.Types.ObjectId(id) },
       {
-        $set: { 'orders.$[].status': status },
+        $set: { 'orders.$.status': status },
       }
     )
-      .then((response) => res.send([true, ddata]))
+      .then((response) => res.send([true, response]))
       .catch((error) => res.send([false, error]));
   } catch (error) {
     res.send([false, error]);
-  }
+  } */
 };
 
 module.exports.addToCart = async (req, res) => {
