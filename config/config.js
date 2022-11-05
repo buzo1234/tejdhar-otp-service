@@ -13,6 +13,8 @@ app.use(
       'http://127.0.0.1:3000',
       'https://www.tejdharart.com',
       'https://tejdharart.com',
+      'https://www.tejdhar-admin.vercel.app',
+      'https://tejdhar-admin.vercel.app',
     ],
   })
 );
