@@ -315,9 +315,9 @@ module.exports.changeStatus = async (req, res) => {
       flag = true;
     }
   );
-
+  console.log('user', JSON.stringify(uu));
   if (flag) {
-    res.send([true, uu]);
+    res.send([true, JSON.stringify(uu)]);
   } else {
     res.send([false, 'Error occured']);
   }
