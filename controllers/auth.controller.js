@@ -310,12 +310,17 @@ module.exports.changeStatus = async (req, res) => {
   const { status, phone, id } = req.body;
 
   try {
-    await User.updateOne({'orders._id': mongoose.Types.ObjectId(id)}, {$set : {'orders.$.status' : status}}).then((response) => res.send([true, response])).catch((err) => res.send([false, err]))
+    await User.updateOne(
+      { 'orders._id': mongoose.Types.ObjectId(id) },
+      { $set: { 'orders.$.status': status } }
+    )
+      .then((response) => res.send([true, response]))
+      .catch((err) => res.send([false, err]));
   } catch (error) {
-    res.send([false, error])
+    res.send([false, error]);
   }
 
-/*   try {
+  /*   try {
     await User.findOneAndUpdate(
       { email: phone, 'orders._id': mongoose.Types.ObjectId(id) },
       {
@@ -351,11 +356,10 @@ module.exports.addToCart = async (req, res) => {
 
 module.exports.payInsta = async (req, res) => {
   Insta.setKeys(
-    /* process.env.API ||  */ 'test_a4e7c88af7be7caeda3872fccd9',
-    /* process.env.AUTH ||  */ 'test_16bd4fb836979bf83814bc01e2f'
+    process.env.API || 'test_a4e7c88af7be7caeda3872fccd9',
+    process.env.AUTH || 'test_16bd4fb836979bf83814bc01e2f'
   );
 
-  Insta.isSandboxMode(true);
   const data = new Insta.PaymentData();
 
   data.purpose = req.body.purpose;
