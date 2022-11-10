@@ -13,5 +13,6 @@ router.post('/sendmail', authController.customOrder);
 router.post('/getorders', authController.allOrders);
 router.post('/adminorders', authController.adminOrders);
 router.post('/status', authController.changeStatus);
+router.post('/users', authController.getAllUsers);
 
 module.exports = router;

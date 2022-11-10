@@ -247,6 +247,16 @@ const User = require('../models/User');
 const url = require('url');
 var mongoose = require('mongoose');
 
+module.exports.getAllUsers = async (req, res) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  try {
+    const all_users = await User.find({});
+    res.send([true, all_users]);
+  } catch (error) {
+    res.send([false, error]);
+  }
+}
+
 module.exports.adminOrders = async (req, res) => {
   res.header('Access-Control-Allow-Origin', '*');
   try {
