@@ -250,7 +250,7 @@ var mongoose = require('mongoose');
 module.exports.getAllUsers = async (req, res) => {
   res.header('Access-Control-Allow-Origin', '*');
   try {
-    const all_users = await User.find({}, 'name email');
+    const all_users = await User.find({}).select('name email');
     res.send([true, all_users]);
   } catch (error) {
     res.send([false, error]);
