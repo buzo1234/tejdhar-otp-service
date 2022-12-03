@@ -310,9 +310,9 @@ module.exports.showOrders = async (req, res) => {
       },
     });
 
-    res.redirect('https://tejdharart.com/orders');
+    res.redirect('https://tejdharart.com/orders?status=Success');
   } else {
-    res.send([false, 'Payment not found']);
+    res.redirect('http//tejdharart.com/orders?status=Failed');
   } 
 };
 
