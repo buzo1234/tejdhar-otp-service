@@ -14,5 +14,6 @@ router.post('/getorders', authController.allOrders);
 router.post('/adminorders', authController.adminOrders);
 router.post('/status', authController.changeStatus);
 router.post('/users', authController.getAllUsers);
+router.post('/checkpayment', authController.checkPayment);
 
 module.exports = router;

@@ -364,10 +364,28 @@ module.exports.addToCart = async (req, res) => {
   }
 };
 
-module.exports.payInsta = async (req, res) => {
+module.exports.checkPayment = async (req, res) => {
   Insta.setKeys(
-    /* process.env.API ||  */ 'test_a4e7c88af7be7caeda3872fccd9',
-    /* process.env.AUTH || */  'test_16bd4fb836979bf83814bc01e2f'
+    'test_a4e7c88af7be7caeda3872fccd9',
+     'test_16bd4fb836979bf83814bc01e2f'
+  );
+  Insta.isSandboxMode(true);
+
+  Insta.getPaymentRequestStatus(req.body.prid, function(error, response) {
+    if (error) {
+      res.send(err)
+    } else {
+      res.send(JSON.parse(response));
+    }
+  });
+}
+
+module.exports.payInsta = async (req, res) => {
+  /* process.env.API ||  */
+  /* process.env.AUTH || */
+  Insta.setKeys(
+    'test_a4e7c88af7be7caeda3872fccd9',
+     'test_16bd4fb836979bf83814bc01e2f'
   );
   Insta.isSandboxMode(true);
   const data = new Insta.PaymentData();
