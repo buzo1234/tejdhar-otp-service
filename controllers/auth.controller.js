@@ -312,7 +312,7 @@ module.exports.showOrders = async (req, res) => {
 
     res.redirect('https://tejdharart.com/orders?status=Success');
   } else {
-    res.redirect('http//tejdharart.com/orders?status=Failed');
+    res.redirect('https://tejdharart.com/orders?status=Failed');
   } 
 };
 
