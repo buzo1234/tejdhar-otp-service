@@ -283,7 +283,12 @@ module.exports.showOrders = async (req, res) => {
   let url_parts = url.parse(req.url, true),
     responsedata = url_parts.query;
 
-  if (responsedata.payment_id) {
+  res.redirect(url.format({
+    pathname:"https://tejdharart.com/orders",
+    query: responsedata
+  }));
+
+/*   if (responsedata.payment_id) {
     let userId = responsedata.user_id;
     let user_order = await findUserByEmail(userId);
     const current = new Date();
@@ -313,7 +318,7 @@ module.exports.showOrders = async (req, res) => {
     res.redirect('https://tejdharart.com/orders');
   } else {
     res.send([false, 'Payment not found']);
-  }
+  } */
 };
 
 module.exports.changeStatus = async (req, res) => {

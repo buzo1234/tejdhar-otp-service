@@ -22,6 +22,7 @@
     "node-fetch": "^2.6.7",
     "nodemailer": "^6.7.2",
     "otp-generator": "^4.0.0",
+    "querystring": "^0.2.1",
     "url": "^0.11.0"
   }
 }
