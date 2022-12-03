@@ -242,6 +242,7 @@ module.exports.signInUser = async (req, res) => {
 const { generateOTP } = require('../services/OTP');
 const { sendMail } = require('../services/MAIL');
 const { sendEmail } = require('../services/EMAIL');
+const { client } = require('../config/client');
 const Insta = require('instamojo-nodejs');
 const User = require('../models/User');
 const url = require('url');
@@ -255,7 +256,7 @@ module.exports.getAllUsers = async (req, res) => {
   } catch (error) {
     res.send([false, error]);
   }
-}
+};
 
 module.exports.adminOrders = async (req, res) => {
   res.header('Access-Control-Allow-Origin', '*');
@@ -283,7 +284,7 @@ module.exports.showOrders = async (req, res) => {
   let url_parts = url.parse(req.url, true),
     responsedata = url_parts.query;
 
-  if (responsedata.payment_id && responsedata.payment_status==='Credit') {
+  if (responsedata.payment_id && responsedata.payment_status === 'Credit') {
     let userId = responsedata.user_id;
     let user_order = await findUserByEmail(userId);
     const current = new Date();
@@ -291,6 +292,17 @@ module.exports.showOrders = async (req, res) => {
       current.getMonth() + 1
     }/${current.getFullYear()}`;
     const cart_order = user_order.cart[0];
+    let cartitems = cart_order.cart;
+
+    for (let i = 0; i < cartitems.length; i++) {
+      let docid = cartitems[i]._id;
+      let qty = cartitems[i].quantity;
+
+      await client
+        .patch(docid) // Document ID to patch// Shallow merge
+        .dec({ InStock: qty }) // Increment field by count
+        .commit(); // Perform the patch and return a promise
+    }
 
     let order_main = {
       _id: mongoose.Types.ObjectId(),
@@ -301,6 +313,7 @@ module.exports.showOrders = async (req, res) => {
       datetime: date,
       status: 'Received',
     };
+
     await User.findByIdAndUpdate(user_order._id, {
       $push: {
         orders: order_main,
@@ -313,7 +326,7 @@ module.exports.showOrders = async (req, res) => {
     res.redirect('http://localhost:3000/orders?status=Success');
   } else {
     res.redirect('http://localhost:3000/orders?status=Failed');
-  } 
+  }
 };
 
 module.exports.changeStatus = async (req, res) => {
@@ -364,32 +377,16 @@ module.exports.addToCart = async (req, res) => {
   }
 };
 
-module.exports.checkPayment = async (req, res) => {
-  Insta.setKeys(
-    'test_a4e7c88af7be7caeda3872fccd9',
-     'test_16bd4fb836979bf83814bc01e2f'
-  );
-  Insta.isSandboxMode(true);
-
-  Insta.getPaymentRequestStatus(req.body.prid, function(error, response) {
-    if (error) {
-      res.send(err)
-    } else {
-      res.send(JSON.parse(response));
-    }
-  });
-}
-
 module.exports.payInsta = async (req, res) => {
   /* process.env.API ||  */
   /* process.env.AUTH || */
   Insta.setKeys(
     'test_a4e7c88af7be7caeda3872fccd9',
-     'test_16bd4fb836979bf83814bc01e2f'
+    'test_16bd4fb836979bf83814bc01e2f'
   );
   Insta.isSandboxMode(true);
   const data = new Insta.PaymentData();
-  
+
   data.purpose = req.body.purpose;
   data.amount = req.body.amount;
   data.buyer_name = req.body.buyer_name;
