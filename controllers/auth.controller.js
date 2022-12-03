@@ -323,9 +323,9 @@ module.exports.showOrders = async (req, res) => {
       },
     });
 
-    res.redirect('http://localhost:3000/orders?status=Success');
+    res.redirect('https://tejdharart.com/orders?status=Success');
   } else {
-    res.redirect('http://localhost:3000/orders?status=Failed');
+    res.redirect('https://tejdharart.com/orders?status=Failed');
   }
 };
 
@@ -381,8 +381,8 @@ module.exports.payInsta = async (req, res) => {
   /* process.env.API ||  */
   /* process.env.AUTH || */
   Insta.setKeys(
-    'test_a4e7c88af7be7caeda3872fccd9',
-    'test_16bd4fb836979bf83814bc01e2f'
+    process.env.API || 'test_a4e7c88af7be7caeda3872fccd9',
+    process.env.AUTH || 'test_16bd4fb836979bf83814bc01e2f'
   );
   Insta.isSandboxMode(true);
   const data = new Insta.PaymentData();
