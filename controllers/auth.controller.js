@@ -366,12 +366,12 @@ module.exports.addToCart = async (req, res) => {
 
 module.exports.payInsta = async (req, res) => {
   Insta.setKeys(
-    process.env.API ||  'test_a4e7c88af7be7caeda3872fccd9',
-    process.env.AUTH ||  'test_16bd4fb836979bf83814bc01e2f'
+    /* process.env.API ||  */ 'test_a4e7c88af7be7caeda3872fccd9',
+    /* process.env.AUTH || */  'test_16bd4fb836979bf83814bc01e2f'
   );
-  
+  Insta.isSandboxMode(true);
   const data = new Insta.PaymentData();
-
+  
   data.purpose = req.body.purpose;
   data.amount = req.body.amount;
   data.buyer_name = req.body.buyer_name;
@@ -388,7 +388,7 @@ module.exports.payInsta = async (req, res) => {
       const responseData = JSON.parse(response);
       console.log(response);
       const redirectUrl = responseData.payment_request.longurl;
-      res.status(200).json(redirectUrl);
+      res.status(200).json(responseData);
     }
   });
 };
