@@ -310,9 +310,9 @@ module.exports.showOrders = async (req, res) => {
       },
     });
 
-    res.redirect('https://tejdharart.com/orders?status=Success');
+    res.redirect('http://localhost:3000/orders?status=Success');
   } else {
-    res.redirect('https://tejdharart.com/orders?status=Failed');
+    res.redirect('http://localhost:3000/orders?status=Failed');
   } 
 };
 
