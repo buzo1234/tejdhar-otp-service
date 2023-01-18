@@ -14,13 +14,15 @@ module.exports.sendEmail = async (params) => {
         style="max-width: 90%; margin: auto; padding-top: 20px"
       >
         <h2>New Custom Order Details</h2>
-        <p style="margin-bottom: 10px; font-weight:bold;">Name:</p>
+        <p style="margin-bottom: 6px; font-weight:bold;">Name:</p>
         <div style="margin-bottom: 30px;">${params.name}</div>
-        <p style="margin-bottom: 10px; font-weight:bold;">Phone Number:</p>
+        <p style="margin-bottom: 6px; font-weight:bold;">Phone Number:</p>
         <div style="margin-bottom: 30px; ">${params.phone}</div>
-        <p style="margin-bottom: 10px; font-weight:bold;">Email:</p>
+        <p style="margin-bottom: 6px; font-weight:bold;">Email:</p>
         <div style="margin-bottom: 30px;">${params.to}</div>
-        <p style="margin-bottom: 10px; font-weight:bold;">Description:</p>
+        <p style="margin-bottom: 6px; font-weight:bold;">Product Name:</p>
+        <div style="margin-bottom: 30px;">${params.prod}</div>
+        <p style="margin-bottom: 6px; font-weight:bold;">Description:</p>
         <div style="margin-bottom: 30px;">${params.desc}</div>
       </div>
     `,

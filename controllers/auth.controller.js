@@ -440,9 +440,9 @@ const findUserByEmail = async (email) => {
 };
 
 module.exports.customOrder = async (req, res) => {
-  const { name, email, description, phone } = req.body;
+  const { name, email, description, phone , product} = req.body;
   try {
-    await sendEmail({ to: email, desc: description, name: name, phone: phone });
+    await sendEmail({ to: email, desc: description, name: name, phone: phone , prod : product});
     res.send([true, 'Mail sent']);
   } catch (error) {
     res.send([false, error]);
