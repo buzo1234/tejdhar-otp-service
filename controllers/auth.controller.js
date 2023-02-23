@@ -384,7 +384,7 @@ module.exports.payInsta = async (req, res) => {
   /* process.env.AUTH || */
   Insta.setKeys(
     process.env.API || 'test_a4e7c88af7be7caeda3872fccd9',
-   process.env.AUTH || 'test_16bd4fb836979bf83814bc01e2f'
+    process.env.AUTH || 'test_16bd4fb836979bf83814bc01e2f'
   );
   //Insta.isSandboxMode(true);
   const data = new Insta.PaymentData();
@@ -443,7 +443,7 @@ const findUserByEmail = async (email) => {
 };
 
 module.exports.customOrder = async (req, res) => {
-  const { name, email, description, phone, product } = req.body;
+  const { name, email, description, phone, product, subject } = req.body;
   try {
     await sendEmail({
       to: email,
@@ -451,6 +451,7 @@ module.exports.customOrder = async (req, res) => {
       name: name,
       phone: phone,
       prod: product,
+      subject: subject,
     });
     res.send([true, 'Mail sent']);
   } catch (error) {
