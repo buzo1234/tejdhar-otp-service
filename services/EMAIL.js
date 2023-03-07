@@ -5,10 +5,10 @@ const transporter = nodemailer.createTransport(MAIL_SETTINGS);
 module.exports.sendEmail = async (params) => {
   try {
     var info;
-    if (params.prod.length > 0) {
+    if (params.prod && params.prod.length > 0) {
       info = await transporter.sendMail({
         from: MAIL_SETTINGS.auth.user,
-        to: 'karandua2002@gmail.com', // list of receivers
+        to: 'tejdharart@gmail.com', // list of receivers
         subject: params.subject, // Subject line
         html: `
         <div
@@ -30,9 +30,10 @@ module.exports.sendEmail = async (params) => {
       `,
       });
     } else {
+      
       info = await transporter.sendMail({
         from: MAIL_SETTINGS.auth.user,
-        to: 'karandua2002@gmail.com', // list of receivers
+        to: 'tejdharart@gmail.com', // list of receivers
         subject: params.subject, // Subject line
         html: `
         <div
