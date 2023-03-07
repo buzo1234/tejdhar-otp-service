@@ -311,9 +311,18 @@ module.exports.showOrders = async (req, res) => {
       user_name: cart_order.username,
       user_phone: cart_order.userphone,
       datetime: date,
-      timeStamp: current.toString(),
+      timeStamjp: current.toString(),
       status: 'Received',
     };
+
+    await sendEmail({
+      to: cart_order.address,
+      desc: null,
+      name: cart_order.username,
+      phone: cart_order.userphone,
+      prod: null,
+      subject: 'New Order Received',
+    });
 
     await User.findByIdAndUpdate(user_order._id, {
       $push: {
@@ -383,10 +392,10 @@ module.exports.payInsta = async (req, res) => {
   /* process.env.API ||  */
   /* process.env.AUTH || */
   Insta.setKeys(
-    process.env.API || 'test_a4e7c88af7be7caeda3872fccd9',
-    process.env.AUTH || 'test_16bd4fb836979bf83814bc01e2f'
+    /* process.env.API || */ 'test_a4e7c88af7be7caeda3872fccd9',
+    /* process.env.AUTH || */ 'test_16bd4fb836979bf83814bc01e2f'
   );
-  //Insta.isSandboxMode(true);
+  Insta.isSandboxMode(true);
   const data = new Insta.PaymentData();
 
   data.purpose = req.body.purpose;
