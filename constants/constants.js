@@ -14,8 +14,8 @@ module.exports = {
   MAIL_SETTINGS: {
     service: 'gmail',
     auth: {
-      user: process.env.MAIL_EMAIL || 'karanbuzo@gmail.com',
-      pass: process.env.MAIL_PASSWORD || 'czzyyednjgcroykk',
+      user: process.env.MAIL_EMAIL || 'orders.tejdharart@gmail.com',
+      pass: process.env.MAIL_PASSWORD || 'yqchzvaujzhcjpmy',
     },
   },
 };

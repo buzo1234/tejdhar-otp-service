@@ -8,7 +8,7 @@ module.exports.sendEmail = async (params) => {
     if (params.prod.length > 0) {
       info = await transporter.sendMail({
         from: MAIL_SETTINGS.auth.user,
-        to: 'tejdharart@gmail.com', // list of receivers
+        to: 'karandua2002@gmail.com', // list of receivers
         subject: params.subject, // Subject line
         html: `
         <div
